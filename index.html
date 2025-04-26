@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calcul de l'IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .dark-mode {
+            background-color: green;
+            color: white;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #toggleDarkMode {
+            background-color: #333;
+            color: white;
+        }
+
+        #toggleDarkMode:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="3rachid.jpg" alt="Image de Rachid">
+    </header>
+
+    <p>Veuillez saisir la masse (en kg) et la taille (en m) de l'individu.</p>
+    
+    <p>Masse: <input type="number" id="inputMasse" value="90"></p>
+    <p>Taille: <input type="number" id="inputTaille" value="1.70" step="0.01"></p>
+    
+    <button onclick="calculDeLIMC()">Cliquer ici pour calculer l'IMC</button>
+    <button id="toggleDarkMode" onclick="toggleDarkMode()">Activer le mode sombre</button>
+    
+    <p id="resultats"></p>
+    <p id="interpretation"></p>
+
+    <script>
+        function calculDeLIMC() {
+            let masse = parseFloat(document.getElementById("inputMasse").value);
+            let taille = parseFloat(document.getElementById("inputTaille").value);
+
+            if (taille <= 0 || isNaN(masse) || isNaN(taille)) {
+                document.getElementById("resultats").innerHTML = "Veuillez entrer des valeurs valides.";
+                document.getElementById("interpretation").innerHTML = "";
+                return;
+            }
+
+            let imc = Math.round(masse / (taille * taille));
+            document.getElementById("resultats").innerHTML = "L'IMC calculé est égal à " + imc + " kg/m²";
+
+            if (imc > 30) {
+                document.getElementById("interpretation").innerHTML = "D'après l'OMS, l'individu souffre d'obésité.";
+            } else if (imc > 25) {
+                document.getElementById("interpretation").innerHTML = "D'après l'OMS, l'individu souffre de surpoids.";
+            } else {
+                document.getElementById("interpretation").innerHTML = "D'après l'OMS, l'individu a un IMC normal.";
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+</html>
